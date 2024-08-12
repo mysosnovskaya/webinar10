@@ -1,5 +1,8 @@
 package ru.yandex.practicum.filmorate.controller;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,9 +24,9 @@ public class UserController {
     private int idGenerator = 1;
 
     @PostMapping
-    public User createUser(@RequestBody User user) {
+    public User createUser(@RequestBody @Valid User user) {
         log.info("Пришел запрос на создание пользователя с email = {}", user.getEmail());
-        validate(user);
+//        validate(user);
         user.setId(idGenerator++);
         users.put(user.getId(), user);
         return user;
